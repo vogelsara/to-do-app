@@ -1,10 +1,11 @@
 const express = require('express');
 
 const app = express();
+app.use(express.json());
 
 app.get('/api/todo', (req, res) => res.json("All todos"));
 app.get('/api/todo/:id', (req, res) => res.json("One todo"));
-app.post('/api/todo', (req, res) => res.json("Create todo"));
+app.post('/api/todo', (req, res) => res.json(req.body));
 app.put('/api/todo', (req, res) => res.json("New todo"));
 app.get('/api/todo/:id', (req, res) => res.json("Update todo"));
 app.delete('/api/todo/:id', (req, res) => res.json("Delete todo"));
