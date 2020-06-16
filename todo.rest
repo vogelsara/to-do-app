@@ -1,0 +1,14 @@
+GET http://localhost:3000/api/todo
+
+###
+GET http://localhost:3000/api/todo/0
+
+###
+POST http://localhost:3000/api/todo
+Content-Type: application/json
+
+{
+    "title" : "Shop food",
+    "date" : "2020-06-16"
+}
+

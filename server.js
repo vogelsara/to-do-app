@@ -1,3 +1,12 @@
 const express = require('express');
 
 const app = express();
+
+app.get('/api/todo', (req, res) => res.json("All todos"));
+app.get('/api/todo/:id', (req, res) => res.json("One todo"));
+app.post('/api/todo', (req, res) => res.json("Create todo"));
+app.put('/api/todo', (req, res) => res.json("New todo"));
+app.get('/api/todo/:id', (req, res) => res.json("Update todo"));
+app.delete('/api/todo/:id', (req, res) => res.json("Delete todo"));
+
+app.listen(3000, () => console.log('server is listening'));
