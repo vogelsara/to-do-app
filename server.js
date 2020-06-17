@@ -4,7 +4,10 @@ let idIndex = 100;
 const todos = [];
 
 const app = express();
+
 app.use(express.json());
+
+app.use(express.static('./client'));
 
 app.get('/api/todo', (req, res) => res.json("All todos"));
 app.get('/api/todo/:id', (req, res) => res.json("One todo"));
