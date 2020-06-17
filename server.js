@@ -1,11 +1,26 @@
 const express = require('express');
 
+let idIndex = 100;
+const todos = [];
+
 const app = express();
 app.use(express.json());
 
 app.get('/api/todo', (req, res) => res.json("All todos"));
 app.get('/api/todo/:id', (req, res) => res.json("One todo"));
-app.post('/api/todo', (req, res) => res.json(req.body));
+app.post('/api/todo', (req, res) => {
+    if(!req.body.title){
+        res.status(400).json({message: "Title is missing :("});
+    }
+    else if(!req.body.date){
+        res.status(400).json({message: "Date is missing"});
+    }else{
+        const todo = {id: idIndex++, ...req.body};
+        todos.push(todo);
+        res.status(201).json(todo);
+    }
+
+});
 app.put('/api/todo', (req, res) => res.json("New todo"));
 app.get('/api/todo/:id', (req, res) => res.json("Update todo"));
 app.delete('/api/todo/:id', (req, res) => res.json("Delete todo"));
