@@ -9,7 +9,7 @@ app.use(express.json());
 
 app.use(express.static('./client'));
 
-app.get('/api/todo', (req, res) => res.json("All todos"));
+app.get('/api/todo', (req, res) => res.json(todos));
 app.get('/api/todo/:id', (req, res) => res.json("One todo"));
 app.post('/api/todo', (req, res) => {
     if(!req.body.title){
