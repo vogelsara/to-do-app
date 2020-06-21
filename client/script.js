@@ -34,5 +34,9 @@ function createTodos(event){
     xhttp.setRequestHeader("Content-Type", "application/json");
     xhttp.send(JSON.stringify(body));
     console.log(body.title + body.date);
-    
+
+    var showTodoContainer = document.getElementById('showTodo');
+    var row = document.createElement('p');
+    showTodoContainer.appendChild(row);
+    row.innerHTML = body.title + " " + body.date;
   }
