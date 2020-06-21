@@ -1,42 +1,37 @@
 window.addEventListener('load', start);
 
 function start() {
-    var xhttp = new XMLHttpRequest();
-    xhttp.onreadystatechange = function() {
-      if (this.readyState == 4 && this.status == 200) {
-          var todos = JSON.parse(this.responseText);
-          console.log(todos);
-      }
-    };
-    xhttp.open("GET", "/api/todo", true);
-    xhttp.send();
+  makeRequest("GET", "/api/todo", [], function(responseText) {
+    var todos = JSON.parse(responseText);
+    console.log(todos);
+  });
   }
 
 function createTodos(event){
     event.preventDefault();
     var title = document.getElementById("titleInput").value;
     var date = document.getElementById("dateInput").value;
-
-    var xhttp = new XMLHttpRequest();
-    xhttp.onreadystatechange = function() {
-      var response = JSON.stringify(this.responseText);
-      console.log(response);
-      if (this.readyState == 4 && this.status == 200) {
-        var response = JSON.parse(this.responseText);
-        console.log(response);
-      }
-    }
-    xhttp.open("POST", "/api/todo", true);
     var body = {
       title: title,
       date: date
     };
-    xhttp.setRequestHeader("Content-Type", "application/json");
-    xhttp.send(JSON.stringify(body));
-    console.log(body.title + body.date);
+
+    makeRequest("POST", "/api/todo", body, function(responseText) {});
 
     var showTodoContainer = document.getElementById('showTodo');
     var row = document.createElement('p');
     showTodoContainer.appendChild(row);
     row.innerHTML = body.title + " " + body.date;
+  }
+
+  function makeRequest(method, url, body, onResponse){
+    var xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function() {
+      if (this.readyState == 4 && parseInt(this.status/100) == 2) {
+          onResponse(this.responseText);
+        }
+    }
+    xhttp.open(method, url, true);
+    xhttp.setRequestHeader("Content-Type", "application/json");
+    xhttp.send(JSON.stringify(body));
   }
