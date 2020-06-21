@@ -8,5 +8,10 @@
 </head>
 <body>
     <h1>My todo list</h1>
+    <form onsubmit="createTodos(event)">
+        <input id="titleInput" placeholder="Title" type="text">
+        <input id="dateInput" type="date">
+        <button type="submit">Create todo</button>
+    </form>
 </body>
 </html>
