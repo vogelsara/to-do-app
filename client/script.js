@@ -29,13 +29,15 @@ function createTodos(event){
 
 
 
-  function renderTodos(todo){
+  function renderTodos(todos){
     var showTodoContainer = document.getElementById('showTodo');
     
-    for(var i = 0; i < todo.length; i++){
+    for(var i = 0; i < todos.length; i++){
       var listElement = document.createElement("li");
-      var content = todo[i];
+      var content = todos[i];
       var checkbox = document.createElement("input");
+      checkbox.id = todos[i].id;
+      checkbox.className = "checkboxTodos";
       checkbox.setAttribute("type", "checkbox");
 
       listElement.innerHTML = content.title + " " + content.date;
@@ -43,6 +45,18 @@ function createTodos(event){
       listElement.appendChild(checkbox);
     }
   }
+
+
+function deleteTodo(){
+    var itemsToDelete = [];
+    var todocheckboxes = document.getElementsByClassName("checkboxTodos");
+    for(var i = 0; i < todocheckboxes.length; i++){
+        if(todocheckboxes[i].checked == true) {
+            itemsToDelete.push(todocheckboxes[i].id);
+        }
+    }
+    makeRequest("DELETE", "/api/todo/", itemsToDelete, function(responseText) {});
+}
 
 
 

@@ -26,7 +26,17 @@ app.post('/api/todo', (req, res) => {
 });
 app.put('/api/todo', (req, res) => res.json("New todo"));
 app.get('/api/todo/:id', (req, res) => res.json("Update todo"));
-app.delete('/api/todo/:id', (req, res) => res.json("Delete todo"));
+app.delete('/api/todo/', (req, res) => {
+    var todosToDelete = req.body;
+    
+    for(var i = 0; i < todosToDelete.length; i++){
+        for(var j = 0; j < todos.length; j++){
+            if(todos[j]["id"] == parseInt(todosToDelete[i])){
+                todos.splice(j, 1);
+            }
+        }
+    }
+});
 
 app.use((req, res) =>{
     res.status(404)
