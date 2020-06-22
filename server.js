@@ -36,6 +36,8 @@ app.delete('/api/todo/', (req, res) => {
             }
         }
     }
+    res.status(200).json();
+
 });
 
 app.use((req, res) =>{

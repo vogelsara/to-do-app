@@ -18,19 +18,22 @@ function createTodos(event){
       date: date
     };
 
-    makeRequest("POST", "/api/todo", body, function(responseText) {});
-
-    var showTodoContainer = document.getElementById('showTodo');
-    var row = document.createElement('p');
-    showTodoContainer.appendChild(row);
-    row.innerHTML = body.title + " " + body.date;
-
+    makeRequest("POST", "/api/todo", body, function(responseText) {
+      makeRequest("GET", "/api/todo", [], function(responseText) {
+        var todos = JSON.parse(responseText);
+        console.log(todos);
+        renderTodos(todos);
+      });
+    });
   }
 
 
 
   function renderTodos(todos){
     var showTodoContainer = document.getElementById('showTodo');
+    while (showTodoContainer.firstChild) {
+      showTodoContainer.removeChild(showTodoContainer.lastChild);
+    }
     
     for(var i = 0; i < todos.length; i++){
       var listElement = document.createElement("li");
@@ -55,7 +58,14 @@ function deleteTodo(){
             itemsToDelete.push(todocheckboxes[i].id);
         }
     }
-    makeRequest("DELETE", "/api/todo/", itemsToDelete, function(responseText) {});
+    makeRequest("DELETE", "/api/todo/", itemsToDelete, function(responseText) {
+      console.log("WWWWWWWWWWWWWWWWWWWWWWWWWW");
+      makeRequest("GET", "/api/todo", [], function(responseText) {
+      var todos = JSON.parse(responseText);
+      console.log(todos);
+      renderTodos(todos);
+    });
+  });
 }
 
 
