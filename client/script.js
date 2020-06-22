@@ -8,8 +8,7 @@ function start() {
   });
 }
 
-
-function createTodos(event){
+function createTodos(event) {
     event.preventDefault();
     var title = document.getElementById("titleInput").value;
     var date = document.getElementById("dateInput").value;
@@ -27,15 +26,13 @@ function createTodos(event){
     });
   }
 
-
-
-  function renderTodos(todos){
+  function renderTodos(todos) {
     var showTodoContainer = document.getElementById('showTodo');
     while (showTodoContainer.firstChild) {
       showTodoContainer.removeChild(showTodoContainer.lastChild);
     }
     
-    for(var i = 0; i < todos.length; i++){
+    for (var i = 0; i < todos.length; i++) {
       var listElement = document.createElement("li");
       var content = todos[i];
       var checkbox = document.createElement("input");
@@ -49,17 +46,15 @@ function createTodos(event){
     }
   }
 
-
-function deleteTodo(){
+function deleteTodo() {
     var itemsToDelete = [];
     var todocheckboxes = document.getElementsByClassName("checkboxTodos");
-    for(var i = 0; i < todocheckboxes.length; i++){
-        if(todocheckboxes[i].checked == true) {
+    for (var i = 0; i < todocheckboxes.length; i++) {
+        if (todocheckboxes[i].checked == true) {
             itemsToDelete.push(todocheckboxes[i].id);
         }
     }
     makeRequest("DELETE", "/api/todo/", itemsToDelete, function(responseText) {
-      console.log("WWWWWWWWWWWWWWWWWWWWWWWWWW");
       makeRequest("GET", "/api/todo", [], function(responseText) {
       var todos = JSON.parse(responseText);
       console.log(todos);
@@ -68,10 +63,7 @@ function deleteTodo(){
   });
 }
 
-
-
-
-  function makeRequest(method, url, body, onResponse){
+  function makeRequest(method, url, body, onResponse) {
     var xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function() {
       if (this.readyState == 4 && parseInt(this.status/100) == 2) {
